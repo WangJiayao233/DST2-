@@ -1,7 +1,9 @@
 package cn.edu.zju.controller;
 
+import cn.edu.zju.bean.DosingGuideline;
 import cn.edu.zju.bean.Drug;
 import cn.edu.zju.bean.DrugLabel;
+import cn.edu.zju.dao.DosingGuidelineDao;
 import cn.edu.zju.dao.DrugDao;
 import cn.edu.zju.dao.DrugLabelDao;
 import cn.edu.zju.servlet.DispatchServlet;
@@ -20,6 +22,7 @@ public class KnowledgeBaseController {
 
     private DrugDao drugDao = new DrugDao();
     private DrugLabelDao drugLabelDao = new DrugLabelDao();
+    private DosingGuidelineDao dosingGuidelineDao = new DosingGuidelineDao();
 
     public void register(DispatchServlet.Dispatcher dispatcher) {
         dispatcher.registerGetMapping("/drugs", this::drugs);
@@ -40,8 +43,8 @@ public class KnowledgeBaseController {
     }
 
     public void dosingGuideline(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Drug> drugs = drugDao.findAll();
-        request.setAttribute("drugs", drugs);
-        request.getRequestDispatcher("/views/drugs.jsp").forward(request, response);
+        List<DosingGuideline> dosingGuidelines = dosingGuidelineDao.findAll();
+        request.setAttribute("dosingGuidelines", dosingGuidelines);
+        request.getRequestDispatcher("/views/dosing_guideline.jsp").forward(request, response);
     }
 }

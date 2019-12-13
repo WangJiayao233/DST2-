@@ -1,12 +1,16 @@
 package cn.edu.zju.dao;
 
 import cn.edu.zju.bean.DosingGuideline;
+import cn.edu.zju.bean.Drug;
 import cn.edu.zju.dbutils.DBUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DosingGuidelineDao extends BaseDao {
 
@@ -35,6 +39,31 @@ public class DosingGuidelineDao extends BaseDao {
             }
         });
 
+    }
+    public List<DosingGuideline> findAll() {
+        List<DosingGuideline> dosingGuidelines = new ArrayList<>();
+        DBUtils.execSQL(connection -> {
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement("select id,obj_cls,name,recommendation,drug_id,source,summary_markdown,text_markdown,raw from dosing_guideline");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    String id = resultSet.getString("id");
+                    String objCls = resultSet.getString("obj_cls");
+                    String name = resultSet.getString("name");
+                    boolean recommendation = resultSet.getBoolean("recommendation");
+                    String drugId = resultSet.getString("drug_id");
+                    String source = resultSet.getString("source");
+                    String summaryMarkdown = resultSet.getString("summary_markdown");
+                    String textMarkdown = resultSet.getString("text_markdown");
+                    String raw = resultSet.getString("raw");
+                    DosingGuideline dosingGuideline = new DosingGuideline(id, objCls, name, recommendation, drugId, source, summaryMarkdown, textMarkdown, raw);
+                    dosingGuidelines.add(dosingGuideline);
+                }
+            } catch (SQLException e) {
+                log.info("", e);
+            }
+        });
+        return dosingGuidelines;
     }
 
 }

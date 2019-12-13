@@ -61,19 +61,19 @@ public class DispatchServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = getPathInfof(req);
+        String pathInfo = getPathInfo(req);
         HttpConsumer<HttpServletRequest, HttpServletResponse> consumer = getRequestMapping.getOrDefault(pathInfo, notFound);
         consumer.accept(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = getPathInfof(req);
+        String pathInfo = getPathInfo(req);
         HttpConsumer<HttpServletRequest, HttpServletResponse> consumer = postRequestMapping.getOrDefault(pathInfo, notFound);
         consumer.accept(req, resp);
     }
 
-    private String getPathInfof(HttpServletRequest req) {
+    private String getPathInfo(HttpServletRequest req) {
         String pathInfo = req.getPathInfo();
         if (pathInfo == null) {
             pathInfo = "/";
