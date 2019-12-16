@@ -5,7 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 public class AnnovarDao extends BaseDao {
@@ -41,5 +44,24 @@ public class AnnovarDao extends BaseDao {
                 e.printStackTrace();
             }
         });
+    }
+
+    public List<String> getRefGenes(int sampleId) {
+        String sql = "select distinct `Gene.refGene` from annovar where `ExonicFunc.refGene` != 'synonymous SNV' and sample_id = ?";
+        List<String> genes = new ArrayList<>();
+        DBUtils.execSQL(connection -> {
+            PreparedStatement preparedStatement = null;
+            try {
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, sampleId);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    genes.add(resultSet.getString(1));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+        return genes;
     }
 }
