@@ -9,12 +9,12 @@ public class Main {
         // comment the step, if you have finished it
 
         // Step 1
-        // drugLabelCrawler.doCrawlerDrug();
+        drugLabelCrawler.doCrawlerDrug();
 
         // Step 2
         drugLabelCrawler.doCrawlerDrugLabel();
 
         // Step 3
-        //dosingGuidelineCrawler.doCrawlerDosingGuidelineList();
+        dosingGuidelineCrawler.doCrawlerDosingGuidelineList();
     }
 }

@@ -168,7 +168,7 @@ create table dosing_guideline
     source varchar(100) null,
     summary_markdown varchar(2000) null,
     text_markdown text null,
-    raw text null,
+    raw longtext null,
     constraint dosing_guideline_id_uindex
         unique (id)
 );
