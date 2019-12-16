@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class='nav-link ${param.active == "matching_index" ? "active" : ""}' href="<%=request.getContextPath()%>/matchingIndex">
                     <span data-feather="file"></span>
                     Matching
                 </a>
