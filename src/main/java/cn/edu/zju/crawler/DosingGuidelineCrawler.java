@@ -1,11 +1,14 @@
 package cn.edu.zju.crawler;
 
-import cn.edu.zju.bean.DosingGuideline;
-import cn.edu.zju.dao.DosingGuidelineDao;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map;
 
@@ -15,10 +18,21 @@ public class DosingGuidelineCrawler extends BaseCrawler {
 
     public static final String URL_BASE = "https://api.pharmgkb.org/v1/data%s";
     public static final String URL_GUIDELINES = "https://api.pharmgkb.org/v1/site/guidelinesByDrugs";
-
-    private DosingGuidelineDao dosingGuidelineDao = new DosingGuidelineDao();
+    private Path path = new File("dosingGuideline.data").toPath();
 
     public void doCrawlerDosingGuidelineList() {
+        if (Files.exists(path)) {
+            try {
+                Files.delete(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            Files.createFile(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String content = this.getURLContent(URL_GUIDELINES);
         Gson gson = new Gson();
         Map drugLabels = gson.fromJson(content, Map.class);
@@ -37,24 +51,11 @@ public class DosingGuidelineCrawler extends BaseCrawler {
 
     public void doCrawlerDosingGuideline(String url) {
         String content = this.getURLContent(String.format(URL_BASE, url));
-        Gson gson = new Gson();
-        Map guideline = gson.fromJson(content, Map.class);
-        Map data = ((Map) guideline.get("data"));
-        String id = (String) data.get("id");
-        String objCls = (String) data.get("objCls");
-        String name = (String) data.get("name");
-        boolean recommendation = (Boolean) data.get("recommendation");
-        String drugId = ((String) ((List<Map>) data.get("relatedChemicals")).get(0).get("id"));
-        String source = (String) data.get("source");
-        String summaryMarkdown = ((String) ((Map) data.get("summaryMarkdown")).get("html"));
-        String textMarkdown = ((String) ((Map) data.get("textMarkdown")).get("html"));
-        String raw = gson.toJson(guideline);
-        DosingGuideline dosingGuideline = new DosingGuideline(id, objCls, name, recommendation, drugId, source, summaryMarkdown, textMarkdown, raw);
-        if (!dosingGuidelineDao.existsById(id)) {
-            dosingGuidelineDao.saveDosingGuideline(dosingGuideline);
-            log.info("Saving dosing guideline: {}", id);
-        } else {
-            log.info("Dosing guideline exists, skipping: {}", id);
+        try {
+            Files.writeString(path, content, StandardOpenOption.APPEND);
+            Files.writeString(path, "\n", StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
