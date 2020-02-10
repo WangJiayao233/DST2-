@@ -13,18 +13,22 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "DrugServlet",  urlPatterns = "/drugs")
-public class DrugServlet extends HttpServlet {
+import static java.util.stream.Collectors.toList;
+
+@WebServlet(name = "DosingGuidelineServlet",  urlPatterns = "/dosingGuideline")
+public class DosingGuidelineServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String drugsContent = Files.readString(Path.of(getServletContext().getRealPath("/WEB-INF/drugs.data")));
+        List<String> drugLabelsContent = Files.readAllLines(Path.of(getServletContext().getRealPath("/WEB-INF/dosingGuideline.data")));
         Gson gson = new Gson();
-        Map drugs = gson.fromJson(drugsContent, Map.class);
-        List<Map> drugList = (List<Map>) drugs.get("data");
-        request.setAttribute("drugs", drugList);
-        request.getRequestDispatcher("/views/drugs.jsp").forward(request, response);
+        List<Object> drugLabels = drugLabelsContent.stream().map(x -> {
+            Map map = gson.fromJson(x, Map.class);
+            return map.get("data");
+        }).collect(toList());
+        request.setAttribute("dosingGuidelines", drugLabels);
+        request.getRequestDispatcher("/views/dosing_guideline.jsp").forward(request, response);
     }
 }

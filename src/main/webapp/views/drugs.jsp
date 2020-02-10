@@ -71,8 +71,8 @@
                     <tbody>
                     <c:forEach items="${drugs}" var="item">
                         <tr>
-                            <td>${item.id}</td>
-                            <td>${item.name}</td>
+                            <td>${item.drug.id}</td>
+                            <td>${item.drug.name}</td>
                             <td>${item.drugUrl}</td>
                             <td>${item.biomarker}</td>
                         </tr>
