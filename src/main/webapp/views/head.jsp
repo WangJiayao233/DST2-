@@ -12,12 +12,12 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Precision Medicine Matching System</a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <c:if test="${sessionScope.username == null}">
+            <% if (session.getAttribute("username") == null) { %>
                 <a class="nav-link" href="<%=request.getContextPath()%>/signin">Sign in</a>
-            </c:if>
-            <c:if test="${sessionScope.username != null}">
-                <a class="nav-link" style="font-size: large;color: white" href="<%=request.getContextPath()%>/logout">hi, ${sessionScope.username} Logout</a>
-            </c:if>
+            <% } %>
+            <% if (session.getAttribute("username") != null) { %>
+                <a class="nav-link" style="font-size: large;color: white" href="<%=request.getContextPath()%>/logout">hi, <% out.print(session.getAttribute("username")); %> Logout</a>
+            <% } %>
         </li>
     </ul>
 </nav>

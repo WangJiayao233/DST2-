@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: hello
   Date: 2019-12-3
@@ -66,15 +67,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${drugLabels}" var="item">
-                        <tr>
-                            <td>${item.id}</td>
-                            <td>${item.source}</td>
-                            <td>${item.dosingInformation}</td>
-                            <td>${item.summaryMarkdown.html}</td>
-                        </tr>
-                    </c:forEach>
-
+                    <%
+                        List<Map> drugLabels = ((List<Map>) request.getAttribute("drugLabels"));
+                        for (Map item : drugLabels) { %>
+                    <tr>
+                        <td><% out.print(item.get("id")); %></td>
+                        <td><% out.print(item.get("source")); %></td>
+                        <td><% out.print(item.get("dosingInformation")); %></td>
+                        <td><% out.print(((Map) item.get("summaryMarkdown")).get("html")); %></td>
+                    </tr>
+                    <% } %>
                     </tbody>
                 </table>
             </div>

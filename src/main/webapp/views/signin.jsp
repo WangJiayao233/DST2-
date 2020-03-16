@@ -6,8 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page isELIgnored="false" %>
 
 <!doctype html>
 <html lang="en">
@@ -52,9 +50,9 @@
         <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
         <div class="checkbox mb-3">
             <label style="color: red">
-                <c:if test="${error != null}">
-                    ${error}
-                </c:if>
+               <% if (request.getAttribute("error") != null) {
+                   out.print(request.getAttribute("error"));
+                } %>
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
