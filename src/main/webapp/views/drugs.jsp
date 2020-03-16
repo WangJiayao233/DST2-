@@ -74,7 +74,7 @@
                     %>
                     <tr>
                         <td><% out.print(drug.get("id")); %></td>
-                        <td><% out.print(drug.get("source")); %></td>
+                        <td><% out.print(drug.get("name")); %></td>
                         <td><% out.print(item.get("drugUrl")); %></td>
                         <td><% out.print(item.get("biomarker")); %></td>
                     </tr>
