@@ -16,12 +16,15 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpSession session = httpServletRequest.getSession();
-        Object roleViewDosingGuideline = session.getAttribute(ROLE_VIEW_DOSING_GUIDELINE);
-        if (roleViewDosingGuideline != null && ((Integer) roleViewDosingGuideline) == 1) {
-            chain.doFilter(request, response);
-        } else {
-            response.setContentType("text/html");
-            response.getWriter().write("You are not allowed to view dosing guideline, please <a href='signin'>sign in</a> first.");
+        Object username = session.getAttribute(USERNAME);
+        if (username != null) {
+            Object roleViewDosingGuideline = session.getAttribute(ROLE_VIEW_DOSING_GUIDELINE);
+            if (roleViewDosingGuideline != null && ((Integer) roleViewDosingGuideline) == 1) {
+                chain.doFilter(request, response);
+            } else {
+                response.setContentType("text/html");
+                response.getWriter().write("You are not allowed to view dosing guideline, please <a href='signin'>sign in</a> first.");
+            }
         }
     }
 }
