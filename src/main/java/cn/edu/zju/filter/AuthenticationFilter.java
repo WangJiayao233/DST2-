@@ -25,6 +25,9 @@ public class AuthenticationFilter implements Filter {
                 response.setContentType("text/html");
                 response.getWriter().write("You are not allowed to view dosing guideline, please <a href='signin'>sign in</a> first.");
             }
+        } else {
+            response.setContentType("text/html");
+            response.getWriter().write("You are not allowed to view dosing guideline, please <a href='signin'>sign in</a> first.");
         }
     }
 }

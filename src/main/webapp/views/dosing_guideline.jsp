@@ -75,7 +75,7 @@
                             <td>${item.recommendation}</td>
                             <td>${item.drugId}</td>
                             <td>${item.source}</td>
-                            <td>${item.summaryMarkdown.html}</td>
+                            <td>${item.summaryMarkdown}</td>
                         </tr>
                     </c:forEach>
 

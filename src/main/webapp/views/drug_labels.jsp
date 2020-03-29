@@ -71,7 +71,7 @@
                             <td>${item.id}</td>
                             <td>${item.source}</td>
                             <td>${item.dosingInformation}</td>
-                            <td>${item.summaryMarkdown.html}</td>
+                            <td>${item.summaryMarkdown}</td>
                         </tr>
                     </c:forEach>
 
