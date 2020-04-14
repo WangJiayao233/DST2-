@@ -1,4 +1,4 @@
-package cn.edu.zju.bean;
+package cn.edu.zju.entity;
 
 import java.util.Date;
 

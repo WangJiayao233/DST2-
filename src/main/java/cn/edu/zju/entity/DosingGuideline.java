@@ -1,5 +1,9 @@
-package cn.edu.zju.bean;
+package cn.edu.zju.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class DosingGuideline {
 
     public DosingGuideline() {
@@ -17,6 +21,7 @@ public class DosingGuideline {
         this.raw = raw;
     }
 
+    @Id
     private String id;
     private String objCls;
     private String name;

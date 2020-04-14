@@ -1,7 +1,12 @@
-package cn.edu.zju.bean;
+package cn.edu.zju.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class DrugLabel {
 
+    @Id
     private String id;
     private String name;
     private String objCls;
