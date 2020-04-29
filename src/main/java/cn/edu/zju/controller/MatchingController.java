@@ -104,7 +104,13 @@ public class MatchingController {
         byte[] bytes = inputStream.readAllBytes();
         String content = new String(bytes);
         int sampleId = sampleDao.save(uploadedBy);
-        annovarDao.save(sampleId, content);
+        try {
+            annovarDao.save(sampleId, content);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            request.setAttribute("validateError", "annovar output file is invalid");
+            request.getRequestDispatcher("/views/matching_index_error.jsp").forward(request, response);
+            return;
+        }
         response.sendRedirect("matching?sampleId=" + sampleId);
     }
 }
