@@ -65,9 +65,12 @@
                 </c:if>
                 <c:if test="${fn:contains(validateError, 'invalid')}">
                     <div>
-                        <div>Please this command:</div>
-                        <code>table_annovar.pl %s /data/ma/humandb -buildver hg19 -out %s -remove -protocol refGene,cytoBand,1000g2015aug_all,1000g2015aug_afr,1000g2015aug_amr,1000g2015aug_eas,1000g2015aug_eur,1000g2015aug_sas,exac03,avsnp150,esp6500siv2_all,esp6500siv2_ea,esp6500siv2_aa,gnomad_exome,dbnsfp35a,gnomad_genome,clinvar_20180603,cosmic70,icgc21,intervar_20180118 -operation g,r,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f  -arg '-hgvs',,,,,,,,,,,,,,,,,,, -nastring . -polish –vcfinput
-                    </code>
+                        <div>Please use this command:</div>
+                        <code>
+                            table_annovar.pl %s /data/ma/humandb -buildver hg19 -out %s -remove -protocol refGene,cytoBand,1000g2015aug_all,1000g2015aug_afr,1000g2015aug_amr,1000g2015aug_eas,1000g2015aug_eur,1000g2015aug_sas,exac03,avsnp150,esp6500siv2_all,esp6500siv2_ea,esp6500siv2_aa,gnomad_exome,dbnsfp35a,gnomad_genome,clinvar_20180603,cosmic70,icgc21,intervar_20180118 -operation g,r,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f  -arg '-hgvs',,,,,,,,,,,,,,,,,,, -nastring . -polish –vcfinput
+                        </code>
+                        <br>
+                        <a href="<%=request.getContextPath()%>/static/Precision Medicine Matching System.pptx">Precision Medicine Matching System.pptx</a>
                     </div>
                 </c:if>
             </div>
