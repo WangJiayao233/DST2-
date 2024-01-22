@@ -17,7 +17,7 @@ public class DosingGuidelineCrawler extends BaseCrawler {
     private static final Logger log = LoggerFactory.getLogger(DosingGuidelineCrawler.class);
 
     public static final String URL_BASE = "https://api.pharmgkb.org/v1/data%s";
-    public static final String URL_GUIDELINES = "https://api.pharmgkb.org/v1/site/guidelinesByDrugs";
+    public static final String URL_GUIDELINES = "https://api.pharmgkb.org/v1/data/guidelineAnnotation?source=cpic";
     private Path path = new File("dosingGuideline.data").toPath();
 
     public void doCrawlerDosingGuidelineList() {
@@ -39,24 +39,13 @@ public class DosingGuidelineCrawler extends BaseCrawler {
         List<Map> data = (List<Map>) drugLabels.get("data");
         data.stream().forEach(x -> {
             log.info("{}", x);
-            List.of("cpic", "cpnds", "dpwg", "fda", "pro").forEach(source -> {
-                List<Map> guidelineList = (List<Map>) x.get(source);
-                guidelineList.forEach(guideline -> {
-                    String url = (String) guideline.get("url");
-                    doCrawlerDosingGuideline(url);
-                });
-            });
+            try {
+                Files.writeString(path, content, StandardOpenOption.APPEND);
+                Files.writeString(path, "\n", StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
-    }
-
-    public void doCrawlerDosingGuideline(String url) {
-        String content = this.getURLContent(String.format(URL_BASE, url));
-        try {
-            Files.writeString(path, content, StandardOpenOption.APPEND);
-            Files.writeString(path, "\n", StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }
