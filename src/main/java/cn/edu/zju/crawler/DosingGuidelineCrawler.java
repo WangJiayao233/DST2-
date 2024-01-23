@@ -35,8 +35,8 @@ public class DosingGuidelineCrawler extends BaseCrawler {
         }
         String content = this.getURLContent(URL_GUIDELINES);
         Gson gson = new Gson();
-        Map drugLabels = gson.fromJson(content, Map.class);
-        List<Map> data = (List<Map>) drugLabels.get("data");
+        Map dosingGuidelines = gson.fromJson(content, Map.class);
+        List<Map> data = (List<Map>) dosingGuidelines.get("data");
         data.stream().forEach(x -> {
             log.info("{}", x);
             try {
