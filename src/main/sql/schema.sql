@@ -1,3 +1,7 @@
+create schema biomed;
+
+use biomed;
+
 create table annovar
 (
     sample_id int not null,
