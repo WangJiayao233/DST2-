@@ -16,6 +16,18 @@
                     Dashboard <span class="sr-only">(current)</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class='nav-link ${param.active == "matching_index" ? "active" : ""}' href="<%=request.getContextPath()%>/matchingIndex">
+                    <span data-feather="file"></span>
+                    Matching
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class='nav-link ${param.active == "samples" ? "active" : ""}' href="<%=request.getContextPath()%>/samples">
+                    <span data-feather="file"></span>
+                    Samples
+                </a>
+            </li>
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -41,6 +53,12 @@
                 <a class='nav-link ${param.active == "dosing_guideline" ? "active" : ""}' href="<%=request.getContextPath()%>/dosingGuideline">
                     <span data-feather="file-text"></span>
                     Dosing Guideline
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class='nav-link ${param.active == "comments" ? "active" : ""}' href="<%=request.getContextPath()%>/comments">
+                    <span data-feather="message-circle"></span>
+                    Comment Section
                 </a>
             </li>
         </ul>
